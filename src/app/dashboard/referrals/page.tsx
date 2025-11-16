@@ -25,7 +25,7 @@ export default function ReferralPage() {
         setUser(user);
         const { data: prof, error: profErr } = await supabase
           .from('profiles')
-          .select('id, role, full_name')
+          .select('id, role, full_name, is_admin')
           .eq('id', user.id)
           .single();
         if (profErr) throw profErr;
