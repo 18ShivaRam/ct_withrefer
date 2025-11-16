@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#f8fafc"/>
+  
+  <!-- Team members -->
+  <g transform="translate(400, 300)">
+    <!-- Person 1 (center) -->
+    <g transform="translate(0, 0)">
+      <!-- Body -->
+      <rect x="-50" y="-20" width="100" height="150" rx="10" fill="#3182ce"/>
+      <!-- Head -->
+      <circle cx="0" cy="-70" r="50" fill="#fed7aa"/>
+      <!-- Face -->
+      <circle cx="-15" cy="-70" r="5" fill="#1e3a8a"/>
+      <circle cx="15" cy="-70" r="5" fill="#1e3a8a"/>
+      <path d="M-15,-50 Q0,-40 15,-50" stroke="#1e3a8a" stroke-width="3" fill="none"/>
+      <!-- Hair -->
+      <path d="M-50,-90 Q-30,-120 0,-120 Q30,-120 50,-90" stroke="#4b5563" stroke-width="20" fill="none"/>
+    </g>
+    
+    <!-- Person 2 (left) -->
+    <g transform="translate(-150, 20)">
+      <!-- Body -->
+      <rect x="-40" y="-20" width="80" height="130" rx="10" fill="#2563eb"/>
+      <!-- Head -->
+      <circle cx="0" cy="-60" r="40" fill="#fed7aa"/>
+      <!-- Face -->
+      <circle cx="-12" cy="-60" r="4" fill="#1e3a8a"/>
+      <circle cx="12" cy="-60" r="4" fill="#1e3a8a"/>
+      <path d="M-12,-45 Q0,-35 12,-45" stroke="#1e3a8a" stroke-width="2" fill="none"/>
+      <!-- Hair -->
+      <path d="M-40,-80 Q-20,-100 0,-100 Q20,-100 40,-80" stroke="#1f2937" stroke-width="16" fill="none"/>
+    </g>
+    
+    <!-- Person 3 (right) -->
+    <g transform="translate(150, 20)">
+      <!-- Body -->
+      <rect x="-40" y="-20" width="80" height="130" rx="10" fill="#1d4ed8"/>
+      <!-- Head -->
+      <circle cx="0" cy="-60" r="40" fill="#fed7aa"/>
+      <!-- Face -->
+      <circle cx="-12" cy="-60" r="4" fill="#1e3a8a"/>
+      <circle cx="12" cy="-60" r="4" fill="#1e3a8a"/>
+      <path d="M-12,-45 Q0,-35 12,-45" stroke="#1e3a8a" stroke-width="2" fill="none"/>
+      <!-- Hair -->
+      <ellipse cx="0" cy="-75" rx="40" ry="25" fill="#4b5563"/>
+    </g>
+  </g>
+  
+  <!-- Desk/Table -->
+  <rect x="150" y="430" width="500" height="20" rx="5" fill="#475569"/>
+  <rect x="200" y="450" width="400" height="10" fill="#334155"/>
+  
+  <!-- Document/Charts -->
+  <g transform="translate(250, 350)">
+    <rect x="-30" y="-40" width="60" height="80" fill="white" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="-20" y1="-20" x2="20" y2="-20" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="-20" y1="0" x2="10" y2="0" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="-20" y1="20" x2="20" y2="20" stroke="#94a3b8" stroke-width="2"/>
+  </g>
+  
+  <g transform="translate(550, 350)">
+    <rect x="-30" y="-40" width="60" height="80" fill="white" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="-20" y1="-30" x2="-10" y2="-10" stroke="#3b82f6" stroke-width="2"/>
+    <line x1="-10" y1="-10" x2="0" y2="-20" stroke="#3b82f6" stroke-width="2"/>
+    <line x1="0" y1="-20" x2="10" y2="0" stroke="#3b82f6" stroke-width="2"/>
+    <line x1="10" y1="0" x2="20" y2="-15" stroke="#3b82f6" stroke-width="2"/>
+  </g>
+  
+  <!-- Laptop -->
+  <g transform="translate(400, 380)">
+    <rect x="-60" y="-40" width="120" height="80" rx="5" fill="#1e293b"/>
+    <rect x="-50" y="-30" width="100" height="60" fill="#e2e8f0"/>
+    <rect x="-70" y="40" width="140" height="10" rx="5" fill="#1e293b"/>
+  </g>
+</svg>

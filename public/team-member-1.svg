@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Background -->
+  <rect x="0" y="0" width="400" height="400" fill="#f0f9ff"/>
+  
+  <!-- Person -->
+  <g transform="translate(200, 200)">
+    <!-- Body/Suit -->
+    <rect x="-75" y="0" width="150" height="180" rx="10" fill="#1e40af"/>
+    
+    <!-- Head -->
+    <circle cx="0" cy="-60" r="70" fill="#fed7aa"/>
+    
+    <!-- Hair -->
+    <path d="M-70,-80 Q-60,-120 0,-120 Q60,-120 70,-80" stroke="#7c2d12" stroke-width="30" fill="none"/>
+    <path d="M-60,-50 Q-70,-70 -60,-90" stroke="#7c2d12" stroke-width="20" fill="none"/>
+    <path d="M60,-50 Q70,-70 60,-90" stroke="#7c2d12" stroke-width="20" fill="none"/>
+    
+    <!-- Face -->
+    <circle cx="-25" cy="-60" r="8" fill="#1e3a8a"/>
+    <circle cx="25" cy="-60" r="8" fill="#1e3a8a"/>
+    <path d="M-25,-30 Q0,-10 25,-30" stroke="#1e3a8a" stroke-width="3" fill="none"/>
+    
+    <!-- Collar -->
+    <path d="M-30,0 L-20,-20 L20,-20 L30,0" fill="#f8fafc"/>
+    
+    <!-- Necklace -->
+    <path d="M-10,-15 L0,-5 L10,-15" stroke="#fcd34d" stroke-width="3" fill="none"/>
+  </g>
+  
+  <!-- Professional elements -->
+  <g transform="translate(200, 300)">
+    <!-- Name tag -->
+    <rect x="-40" y="-10" width="80" height="20" rx="5" fill="#dbeafe"/>
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="#1e3a8a" text-anchor="middle">S. Johnson</text>
+  </g>
+</svg>

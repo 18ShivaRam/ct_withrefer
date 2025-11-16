@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="#dbeafe" />
+  
+  <!-- Document Icon -->
+  <g transform="translate(100, 100)">
+    <!-- Main Document -->
+    <path d="M-40,-50 L20,-50 L40,-30 L40,50 L-40,50 Z" fill="#ffffff" stroke="#1e40af" stroke-width="4" />
+    
+    <!-- Folded Corner -->
+    <path d="M20,-50 L40,-30 L20,-30 Z" fill="#bfdbfe" stroke="#1e40af" stroke-width="4" />
+    
+    <!-- Document Lines -->
+    <line x1="-25" y1="-30" x2="25" y2="-30" stroke="#1e40af" stroke-width="3" />
+    <line x1="-25" y1="-15" x2="25" y2="-15" stroke="#1e40af" stroke-width="3" />
+    <line x1="-25" y1="0" x2="25" y2="0" stroke="#1e40af" stroke-width="3" />
+    <line x1="-25" y1="15" x2="25" y2="15" stroke="#1e40af" stroke-width="3" />
+    <line x1="-25" y1="30" x2="10" y2="30" stroke="#1e40af" stroke-width="3" />
+    
+    <!-- Upload Arrow -->
+    <path d="M-15,-10 L15,-10 L15,-25 L25,-15 L0,-40 L-25,-15 L-15,-25 Z" fill="#3b82f6" stroke="#1e40af" stroke-width="2" />
+  </g>
+</svg>

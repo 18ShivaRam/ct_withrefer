@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Background -->
+  <rect x="0" y="0" width="400" height="400" fill="#f0f9ff"/>
+  
+  <!-- Person -->
+  <g transform="translate(200, 200)">
+    <!-- Body/Suit -->
+    <rect x="-75" y="0" width="150" height="180" rx="10" fill="#1e3a8a"/>
+    
+    <!-- Head -->
+    <circle cx="0" cy="-60" r="70" fill="#fed7aa"/>
+    
+    <!-- Hair -->
+    <ellipse cx="0" cy="-90" rx="75" ry="50" fill="#7c2d12"/>
+    <path d="M-60,-50 Q-65,-60 -60,-70" stroke="#7c2d12" stroke-width="20" fill="none"/>
+    <path d="M60,-50 Q65,-60 60,-70" stroke="#7c2d12" stroke-width="20" fill="none"/>
+    
+    <!-- Face -->
+    <circle cx="-25" cy="-60" r="8" fill="#1e3a8a"/>
+    <circle cx="25" cy="-60" r="8" fill="#1e3a8a"/>
+    <path d="M-25,-30 Q0,-10 25,-30" stroke="#1e3a8a" stroke-width="3" fill="none"/>
+    
+    <!-- Earrings -->
+    <circle cx="-70" cy="-50" r="5" fill="#fcd34d"/>
+    <circle cx="70" cy="-50" r="5" fill="#fcd34d"/>
+    
+    <!-- Collar -->
+    <path d="M-30,0 L-20,-20 L20,-20 L30,0" fill="#f8fafc"/>
+    
+    <!-- Necklace -->
+    <path d="M-20,-15 L0,0 L20,-15" stroke="#fcd34d" stroke-width="3" fill="none"/>
+  </g>
+  
+  <!-- Professional elements -->
+  <g transform="translate(200, 300)">
+    <!-- Name tag -->
+    <rect x="-40" y="-10" width="80" height="20" rx="5" fill="#dbeafe"/>
+    <text x="0" y="5" font-family="Arial" font-size="12" fill="#1e3a8a" text-anchor="middle">L. Rodriguez</text>
+  </g>
+</svg>
