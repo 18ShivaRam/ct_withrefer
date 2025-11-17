@@ -103,7 +103,7 @@ const Header = () => {
           {!user ? (
             <div className="flex items-center space-x-3">
               <Link 
-                href="http://localhost:3000/auth/register" 
+                href="/auth/register" 
                 className="border border-[#006666] text-[#006666] font-medium px-6 py-2 rounded-md hover:bg-[#f0fdfa] transition-all duration-300"
               >
                 Register
@@ -197,7 +197,7 @@ const Header = () => {
           {!user ? (
             <div className="flex items-center space-x-3">
               <Link 
-                href="http://localhost:3000/auth/register" 
+                href="/auth/register" 
                 className="border border-[#006666] text-[#006666] px-6 py-3 rounded-lg hover:bg-[#f0fdfa] transition-all duration-300 text-center transform hover:scale-105" 
                 onClick={toggleMenu}
               >

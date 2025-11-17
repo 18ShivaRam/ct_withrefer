@@ -80,7 +80,7 @@ export default function PromoModal() {
             Login
           </Link>
           <Link
-            href="http://localhost:3000/auth/register"
+            href="/auth/register"
             className="px-5 py-2.5 rounded-md border border-[#006666] text-[#006666] font-medium hover:bg-[#f0fdfa] transition-colors"
             onClick={close}
           >
