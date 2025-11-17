@@ -1,0 +1,6 @@
+# robots.txt for Cognitax
+User-agent: *
+Allow: /
+
+# Point crawlers to your sitemap
+Sitemap: https://cognitaxes.com/sitemap.xml
