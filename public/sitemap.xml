@@ -11,12 +11,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cognitaxes.com/services</loc>
+    <loc>https://cognitaxes.com/auth/login</loc>
     <lastmod>2025-11-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cognitaxes.com/how-it-works</loc>
+    <loc>https://cognitaxes.com/auth/register</loc>
     <lastmod>2025-11-17</lastmod>
     <priority>0.7</priority>
   </url>
