@@ -15,10 +15,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cognitax",
-  description: "Cognitax LLC provides expert tax preparation, bookkeeping, and financial advisory services for individuals, small businesses, and corporations.",
+  metadataBase: new URL("https://cognitaxes.com"),
+  title: {
+    default: "Cognitax — Smart, Secure Tax Filing",
+    template: "%s | Cognitax",
+  },
+  description:
+    "Expert tax preparation for individuals and businesses. Bookkeeping, payroll, IRS representation, and strategic planning — secure, accurate, and stress-free.",
   icons: {
-    icon: "../../../public/images/logosvg.svg", // path relative to public/ or app/
+    icon: "../../../public/images/logosvg.svg",
+  },
+  openGraph: {
+    siteName: "Cognitax",
+    type: "website",
+    url: "https://cognitaxes.com/",
+    title: "Cognitax — Smart, Secure Tax Filing",
+    description:
+      "Expert tax preparation for individuals and businesses. Bookkeeping, payroll, IRS representation, and strategic planning.",
   },
 };
 
