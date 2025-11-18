@@ -1,3 +1,11 @@
+export const metadata = {
+  title: "Pricing — Transparent Tax & Business Service Rates | Cognitax",
+  description:
+    "View transparent pricing for tax filing, bookkeeping, GST, payroll, and business compliance services. No hidden fees — simple, clear pricing from Cognitax.",
+  alternates: {
+    canonical: "https://cognitaxes.com/prices",
+  },
+};
 'use client';
 
 import dynamic from 'next/dynamic';
