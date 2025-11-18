@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://cognitaxes.com"),
   title: {
-    default: "Cognitax — Smart, Secure Tax Filing",
+    default: "Cognitax – Online Tax Filing, GST Services, Accounting & Compliance in India",
     template: "%s | Cognitax",
   },
   description:
-    "Expert tax preparation for individuals and businesses. Bookkeeping, payroll, IRS representation, and strategic planning — secure, accurate, and stress-free.",
+    "Cognitax offers fast and accurate online tax filing, GST registration, accounting, compliance, bookkeeping, and business tax services across India.",
   icons: {
     icon: "../../../public/images/logosvg.svg",
   },
@@ -29,11 +29,13 @@ export const metadata: Metadata = {
     siteName: "Cognitax",
     type: "website",
     url: "https://cognitaxes.com/",
-    title: "Cognitax — Smart, Secure Tax Filing",
+    title:
+      "Cognitax – Online Tax Filing, GST Services, Accounting & Compliance in India",
     description:
-      "Expert tax preparation for individuals and businesses. Bookkeeping, payroll, IRS representation, and strategic planning.",
+      "Expert online tax filing, GST, bookkeeping, compliance management and business tax services for individuals and companies across India.",
   },
 };
+
 
 export default function RootLayout({
   children,
