@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  // Use a dedicated dev dist directory to avoid locked 'build' folder on Windows
-  distDir: '.next-dev',
+  // Use a dedicated dev dist directory to avoid Windows EPERM issues,
+  // and default to .next in production for Netlify compatibility.
+  distDir: isDev ? '.next-dev' : '.next',
 };
 
 export default nextConfig;

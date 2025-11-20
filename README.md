@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Windows Development Note
+
+If you encounter `EPERM: operation not permitted` errors related to Next.js trace files on Windows during local development:
+
+- Set the environment variable before starting the dev server: `NEXT_DISABLE_TRACE=1`
+- This project uses a development-only dist directory (`.next-dev`) via `next.config.ts`.
+- Production builds (including Netlify) use the default `.next` directory for compatibility with the Netlify Next.js runtime.
