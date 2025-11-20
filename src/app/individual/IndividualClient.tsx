@@ -49,7 +49,7 @@ export default function IndividualPage() {
       icon: <FaFileAlt size={24} />,
       title: "Federal, State & Local Tax Filing Services",
       shortDesc: "Expert preparation of your tax returns",
-      mainDesc: "At Cognitax, we specialize in end-to-end tax filing solutions for individuals across the United States. Whether you're a U.S. resident, non-resident, or someone with multi-state obligations, our expert team ensures accurate, compliant, and timely filings.",
+      mainDesc: "At Cognitaxes, we specialize in end-to-end tax filing solutions for individuals across the United States. Whether you're a U.S. resident, non-resident, or someone with multi-state obligations, our expert team ensures accurate, compliant, and timely filings.",
       federalServices: {
         title: "Federal Tax Filing",
         items: [

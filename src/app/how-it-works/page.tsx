@@ -4,7 +4,7 @@ import HowItWorksClient from './HowItWorksClient';
 export const metadata: Metadata = {
   title: 'How It Works — Simple, Secure, Expert-Reviewed Tax Filing',
   description:
-    'See how Cognitax works: upload documents, get expert review, and file securely. Transparent process with real-time updates.',
+    'See how Cognitaxes works: upload documents, get expert review, and file securely. Transparent process with real-time updates.',
   alternates: { canonical: 'https://cognitaxes.com/how-it-works' },
 };
 

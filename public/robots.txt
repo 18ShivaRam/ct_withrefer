@@ -1,4 +1,4 @@
-# robots.txt for Cognitax
+# robots.txt for Cognitaxes
 User-agent: *
 Allow: /
 

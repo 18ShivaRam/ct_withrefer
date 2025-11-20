@@ -98,7 +98,7 @@ export default function HowItWorksPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h1>
             <p className="text-xl mb-8">
               Our streamlined process makes tax preparation simple, secure, and stress-free.
-              Follow these easy steps to complete your tax filing with Cognitax.
+              Follow these easy steps to complete your tax filing with Cognitaxes.
             </p>
           </motion.div>
         </div>
@@ -164,7 +164,7 @@ export default function HowItWorksPage() {
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Ready to Get Started?</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Begin your hassle-free tax filing experience with Cognitax today.
+              Begin your hassle-free tax filing experience with Cognitaxes today.
               Our team is ready to guide you through every step of the process.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">

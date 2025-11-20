@@ -266,7 +266,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
                 <p className="text-gray-600 italic text-lg leading-relaxed">
-                  "Cognitax has been handling my business taxes for 3 years now. Their expertise has saved me thousands in deductions I didn't know I qualified for. Highly recommend their services!"
+                  "Cognitaxes has been handling my business taxes for 3 years now. Their expertise has saved me thousands in deductions I didn't know I qualified for. Highly recommend their services!"
                 </p>
               </motion.div>
               <motion.div 
@@ -286,7 +286,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
                 <p className="text-gray-600 italic text-lg leading-relaxed">
-                  "As a freelancer, my taxes were always complicated. The team at Cognitax simplified everything and made sure I was compliant while maximizing my returns. Worth every penny!"
+                  "As a freelancer, my taxes were always complicated. The team at Cognitaxes simplified everything and made sure I was compliant while maximizing my returns. Worth every penny!"
                 </p>
               </motion.div>
             </div>

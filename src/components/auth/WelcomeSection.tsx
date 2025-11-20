@@ -12,7 +12,7 @@ export default function WelcomeSection() {
     >
       <div className="relative z-10">
         <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-          Welcome to CogniTax
+          Welcome to Cognitaxes
         </h1>
         <p className="text-lg mb-6 text-blue-50">
           Your trusted partner for seamless tax solutions and expert financial guidance.

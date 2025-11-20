@@ -69,7 +69,7 @@ const Header = () => {
         <Link href="/" className="flex items-center">
           <Image
             src="/images/logosvg1.jpg"
-            alt="Cognitax Logo"
+            alt="Cognitaxes Logo"
             width={160}
             height={40}
             priority

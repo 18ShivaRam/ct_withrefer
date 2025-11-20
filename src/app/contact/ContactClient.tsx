@@ -290,7 +290,7 @@ export default function ContactPage() {
               </p>
 
               <a
-                href="mailto:admin@cognitax.com"
+                href="mailto:admin@cognitaxes.com"
                 className="inline-block bg-[#00B2FF] text-white py-3 px-6 rounded-md hover:bg-blue-600 transition-colors"
               >
                 Email Us

@@ -53,6 +53,7 @@ export default function RootLayout({
     name: 'Cognitaxes',
     url: 'https://cognitaxes.com',
     logo: 'https://cognitaxes.com/images/logosvg.svg',
+    sameAs: [],
   };
   return (
     <html lang="en" className="scroll-smooth">

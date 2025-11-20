@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import LoginClient from './LoginClient';
 
 export const metadata: Metadata = {
-  title: 'Login — Cognitax',
+  title: 'Login — Cognitaxes',
   robots: { index: false, follow: false },
 };
 

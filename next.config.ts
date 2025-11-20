@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  // Write build/dev artifacts to a non-hidden folder to mitigate Windows EPERM
-  distDir: 'build',
+  // Use a dedicated dev dist directory to avoid locked 'build' folder on Windows
+  distDir: '.next-dev',
 };
 
 export default nextConfig;

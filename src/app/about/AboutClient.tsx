@@ -18,7 +18,7 @@
 //             className="max-w-4xl mx-auto text-center relative z-10"
 //           >
 //             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-//               About Cognitax LLC
+//               About Cognitaxes LLC
 //             </h1>
 //             <p className="text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto">
 //               We're dedicated to making tax filing simple, secure, and stress-free for individuals and businesses, with a commitment to excellence and innovation.
@@ -41,7 +41,7 @@
 //               <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-8">Our Mission</h2>
 //               <div className="space-y-6 text-lg">
 //                 <p className="text-gray-600">
-//                   At Cognitax LLC, our mission is to provide expert tax preparation and financial advisory services that empower our clients to achieve financial success while ensuring full compliance with tax regulations.
+//                   At Cognitaxes LLC, our mission is to provide expert tax preparation and financial advisory services that empower our clients to achieve financial success while ensuring full compliance with tax regulations.
 //                 </p>
 //                 <p className="text-gray-600">
 //                   We believe that everyone deserves access to professional tax services that maximize their financial benefits while minimizing stress and complexity. Our team of certified tax professionals is committed to staying at the forefront of tax law changes to provide the most accurate and beneficial service to our clients.
@@ -61,7 +61,7 @@
 //               <div className="relative h-96 w-full rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
 //                 <Image 
 //                   src="/team.svg" 
-//                   alt="Cognitax team" 
+//                   alt="Cognitaxes team"
 //                   fill
 //                   style={{ objectFit: 'cover' }}
 //                   className="filter brightness-105"
@@ -84,7 +84,7 @@
 //           >
 //             <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">Our Core Values</h2>
 //             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-//               These principles guide everything we do at Cognitax, ensuring excellence in service and client satisfaction.
+//               These principles guide everything we do at Cognitaxes, ensuring excellence in service and client satisfaction.
 //             </p>
 //           </motion.div>
 
@@ -273,7 +273,7 @@ export default function About() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
           >
-            About Cognitax
+            About Cognitaxes
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -321,7 +321,7 @@ export default function About() {
               <div className="relative h-96 w-full rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transform hover:scale-[1.02] transition-transform duration-300">
                 <Image
                   src="/team.svg"
-                  alt="Cognitax Team"
+                  alt="Cognitaxes Team"
                   fill
                   style={{ objectFit: 'cover' }}
                   className="filter brightness-105"

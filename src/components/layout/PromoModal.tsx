@@ -51,7 +51,7 @@ export default function PromoModal() {
         <div className="flex items-center justify-center mb-4">
           <Image
             src="/images/logosvg1.jpg"
-            alt="Cognitax Logo"
+            alt="Cognitaxes Logo"
             width={160}
             height={40}
             className="h-10 w-auto object-contain"
@@ -66,7 +66,7 @@ export default function PromoModal() {
           Pay only when you file.
         </h3>
         <p className="mt-3 text-center text-sm text-gray-600">
-          Get expert tax filing services with Cognitax. Begin today at no
+          Get expert tax filing services with Cognitaxes. Begin today at no
           cost—pay only when you approve your return for filing.
         </p>
 

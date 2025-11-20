@@ -63,7 +63,7 @@ export default function AdminLogin() {
             <Link href="/">
               <Image
                 src="/images/logosvg1.jpg"
-                alt="Cognitax Logo"
+                alt="Cognitaxes Logo"
                 width={150}
                 height={50}
                 className="w-auto h-12"
