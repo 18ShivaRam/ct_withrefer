@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function AdminUserPage({ params }: { params: { id: string } }) {
-  return <AdminUserClient id={params.id} />;
+// Next.js 15 server components may type `params` as a Promise.
+// Use async function and await the params to satisfy PageProps.
+export default async function AdminUserPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return <AdminUserClient id={id} />;
 }
