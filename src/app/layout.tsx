@@ -14,28 +14,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cognitaxes.com"),
+  metadataBase: new URL('https://cognitaxes.com'),
   title: {
-    default: "Cognitax – Online Tax Filing, GST Services, Accounting & Compliance in India",
-    template: "%s | Cognitax",
+    default: 'Cognitax – Online Tax Filing, GST Services, Accounting & Compliance in India',
+    template: '%s | Cognitax',
   },
   description:
-    "Cognitax offers fast and accurate online tax filing, GST registration, accounting, compliance, bookkeeping, and business tax services across India.",
-  icons: {
-    icon: "../../../public/images/logosvg.svg",
-  },
+    'Expert online tax filing, GST, bookkeeping, compliance management and business tax services for individuals and companies across India.',
+  icons: { icon: '/images/logosvg.svg' },
   openGraph: {
-    siteName: "Cognitax",
-    type: "website",
-    url: "https://cognitaxes.com/",
+    siteName: 'Cognitax',
+    type: 'website',
+    url: 'https://cognitaxes.com/',
     title:
-      "Cognitax – Online Tax Filing, GST Services, Accounting & Compliance in India",
+      'Cognitax – Online Tax Filing, GST Services, Accounting & Compliance in India',
     description:
-      "Expert online tax filing, GST, bookkeeping, compliance management and business tax services for individuals and companies across India.",
+      'Expert online tax filing, GST, bookkeeping, compliance management and business tax services for individuals and companies across India.',
   },
-};
-
+}
 
 export default function RootLayout({
   children,

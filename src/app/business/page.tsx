@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import BusinessClient from './BusinessClient';
 
 export const metadata: Metadata = {
-  title: 'Business Tax Services — LLC, Partnerships, Corporations, Compliance',
+  title: 'Business Tax Services — LLC, Corp, and Partnership Filing',
   description:
-    'Cognitax supports businesses with tax preparation, entity setup, compliance, payroll, bookkeeping, and strategic tax planning.',
+    'Comprehensive business tax services for LLCs, corporations, and partnerships. Secure filings, accurate compliance, and dedicated support.',
   alternates: { canonical: 'https://cognitaxes.com/business' },
 };
 

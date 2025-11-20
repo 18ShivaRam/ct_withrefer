@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import ServicesClient from './ServicesClient';
 
 export const metadata: Metadata = {
-  title: 'Tax & Financial Services — Personal, Business, Bookkeeping, IRS Help',
+  title: 'Tax Services — Individuals and Businesses',
   description:
-    'Explore Cognitax services: individual and business tax filing, bookkeeping, payroll, IRS representation, tax planning, and compliance.',
+    'End-to-end tax services for individuals and businesses. Filing, compliance, and expert support tailored to your needs.',
   alternates: { canonical: 'https://cognitaxes.com/services' },
 };
 
