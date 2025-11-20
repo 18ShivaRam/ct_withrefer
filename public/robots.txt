@@ -2,5 +2,11 @@
 User-agent: *
 Allow: /
 
+# Prevent indexing of private areas
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /employee
+Disallow: /client
+
 # Point crawlers to your sitemap
 Sitemap: https://cognitaxes.com/sitemap.xml

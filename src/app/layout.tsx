@@ -24,6 +24,18 @@ export const metadata: Metadata = {
   description:
     'Expert online tax filing, GST, bookkeeping, compliance management and business tax services for individuals and companies across India.',
   icons: { icon: '/images/logosvg.svg' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     siteName: 'Cognitaxes',
     type: 'website',
@@ -55,6 +67,12 @@ export default function RootLayout({
     logo: 'https://cognitaxes.com/images/logosvg.svg',
     sameAs: [],
   };
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Cognitaxes',
+    url: 'https://cognitaxes.com/',
+  };
   return (
     <html lang="en" className="scroll-smooth">
       <body
@@ -63,6 +81,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <Header />
         <main className="pt-20 min-h-screen">
