@@ -22,3 +22,37 @@
 
 [build.processing.images]
   compress = true
+
+# Force HTTPS and canonical host
+[[redirects]]
+  from = "/*"
+  to = "https://cognitaxes.com/:splat"
+  status = 301
+  force = true
+  conditions = { Host = ["www.cognitaxes.com"] }
+
+# Ensure HTTP -> HTTPS for root domain
+[[redirects]]
+  from = "http://cognitaxes.com/*"
+  to = "https://cognitaxes.com/:splat"
+  status = 301
+  force = true
+
+# Ensure HTTP -> HTTPS for www and collapse to root
+[[redirects]]
+  from = "http://www.cognitaxes.com/*"
+  to = "https://cognitaxes.com/:splat"
+  status = 301
+  force = true
+
+# Collapse https://www to https:// (canonical root)
+[[redirects]]
+  from = "https://www.cognitaxes.com/*"
+  to = "https://cognitaxes.com/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
