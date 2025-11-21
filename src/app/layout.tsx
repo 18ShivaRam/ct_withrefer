@@ -65,7 +65,9 @@ export default function RootLayout({
     name: 'Cognitaxes',
     url: 'https://cognitaxes.com',
     logo: 'https://cognitaxes.com/images/logosvg.svg',
-    sameAs: [],
+    sameAs: [
+      'https://www.facebook.com/profile.php?id=61583894408545',
+    ],
   };
   const websiteSchema = {
     '@context': 'https://schema.org',
