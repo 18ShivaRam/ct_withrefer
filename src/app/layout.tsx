@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: 'Cognitaxes – Online Tax Filing, GST Services, Accounting & Compliance in India',
     description:
       'Expert online tax filing, GST, bookkeeping, compliance management and business tax services for individuals and companies across India.',
-    images: ['https://cognitaxes.com/images/logosvg.jpg'],
+    images: ['https://cognitaxes.com/images/logosvg1.jpg'],
   },
 }
 
@@ -64,10 +64,16 @@ export default function RootLayout({
     '@type': 'Organization',
     name: 'Cognitaxes',
     legalName: 'Cognitaxes',
+    alternateName: 'Cognitax LLC',
     url: 'https://cognitaxes.com',
-    logo: 'https://cognitaxes.com/images/logosvg.svg',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://cognitaxes.com/images/logosvg.jpg'
+    },
     sameAs: [
       'https://www.facebook.com/profile.php?id=61583894408545',
+      'https://www.linkedin.com/in/cognitaxes/',
+      'https://www.instagram.com/cognitaxes/',
     ],
   };
   const websiteSchema = {
@@ -75,6 +81,7 @@ export default function RootLayout({
     '@type': 'WebSite',
     name: 'Cognitaxes',
     url: 'https://cognitaxes.com/',
+    image: 'https://cognitaxes.com/images/logosvg1.jpg',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://www.google.com/search?q=site:cognitaxes.com+{search_term_string}',
