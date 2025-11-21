@@ -63,6 +63,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Cognitaxes',
+    legalName: 'Cognitaxes',
     url: 'https://cognitaxes.com',
     logo: 'https://cognitaxes.com/images/logosvg.svg',
     sameAs: [
@@ -74,6 +75,11 @@ export default function RootLayout({
     '@type': 'WebSite',
     name: 'Cognitaxes',
     url: 'https://cognitaxes.com/',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://www.google.com/search?q=site:cognitaxes.com+{search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
   };
   return (
     <html lang="en" className="scroll-smooth">
