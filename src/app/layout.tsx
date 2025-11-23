@@ -36,14 +36,22 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  
   openGraph: {
-    siteName: 'Cognitaxes',
     type: 'website',
+    siteName: 'Cognitaxes',
     url: 'https://cognitaxes.com/',
-    title:
-      'Cognitaxes – Online Tax Filing, GST Services, Accounting & Compliance in India',
+    title: 'Cognitaxes — Smart tax filing for individuals & businesses',
     description:
-      'Expert online tax filing, GST, bookkeeping, compliance management and business tax services for individuals and companies across India.',
+      'Easy online tax filing with transparent pricing and dedicated human support.',
+    images: [
+      {
+        url: 'https://cognitaxes.com/images/logosvg1.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Cognitaxes brand logo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -68,7 +76,7 @@ export default function RootLayout({
     url: 'https://cognitaxes.com',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://cognitaxes.com/images/logosvg.jpg'
+      url: 'https://cognitaxes.com/images/logosvg1.jpg'
     },
     sameAs: [
       'https://www.facebook.com/profile.php?id=61583894408545',
