@@ -82,6 +82,8 @@ export default function RootLayout({
       'https://www.facebook.com/profile.php?id=61583894408545',
       'https://www.linkedin.com/in/cognitaxes/',
       'https://www.instagram.com/cognitaxes/',
+      'https://x.com/cognitaxes',
+      'https://www.youtube.com/channel/UC-axDIRGdKtoA5OHyy1RlKw'
     ],
   };
   const websiteSchema = {
