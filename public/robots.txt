@@ -2,6 +2,11 @@
 User-agent: *
 Allow: /
 
+# Explicitly reference the dynamic sitemap served at /sitemap.xml
+Sitemap: https://cognitaxes.com/sitemap.xml
+User-agent: *
+Allow: /
+
 # Prevent indexing of private areas
 Disallow: /admin
 Disallow: /dashboard
