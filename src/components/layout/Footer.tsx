@@ -136,7 +136,7 @@ const Footer = () => {
               </a>
               <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 group">
                 <FaMapMarkerAlt className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
-                <span>633 old stone rd, Austin, Tx, 78737</span>
+                <span>633 old stone rd, Austin, TEXAS, 78737</span>
               </div>
             </div>
           </div>
