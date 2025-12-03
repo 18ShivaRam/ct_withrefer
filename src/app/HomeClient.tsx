@@ -90,7 +90,7 @@ export default function Home() {
       className="md:w-1/2 flex flex-col justify-center text-left"
     >
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        Cognitaxes — Smart, Secure & Hassle-Free Tax Filing
+        Smart, Secure & Hassle-Free Tax Filing
       </h1>
       <p className="text-lg sm:text-xxl mb-8 text-blue-100">
         Cognitaxes provides expert tax preparation and financial advisory services for individuals and businesses.
