@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaLinkedin, FaYoutube,FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -16,25 +16,39 @@ const Footer = () => {
             </p>
             <div className="flex space-x-6 justify-center md:justify-start">
               <a 
-                href="#" 
+                href="https://www.facebook.com/profile.php?id=61583894408545" 
                 className="text-gray-400 hover:text-[#006666] transition-all duration-300 transform hover:scale-110"
                 aria-label="Facebook"
               >
                 <FaFacebook size={24} />
               </a>
               <a 
-                href="#" 
+                href="https://x.com/cognitaxes" 
                 className="text-gray-400 hover:text-[#006666] transition-all duration-300 transform hover:scale-110"
                 aria-label="Twitter"
               >
                 <FaTwitter size={24} />
               </a>
               <a 
-                href="#" 
+                href="https://www.linkedin.com/in/cognitaxes/" 
                 className="text-gray-400 hover:text-[#006666] transition-all duration-300 transform hover:scale-110"
                 aria-label="LinkedIn"
               >
                 <FaLinkedin size={24} />
+              </a>
+
+               <a 
+                href="https://www.youtube.com/channel/UC-axDIRGdKtoA5OHyy1RlKw" 
+                className="text-gray-400 hover:text-[#006666] transition-all duration-300 transform hover:scale-110"
+                aria-label="Youtube"
+              >     <FaYoutube size={24} />
+              </a>
+
+              <a 
+                href="https://www.instagram.com/cognitaxes/" 
+                className="text-gray-400 hover:text-[#006666] transition-all duration-300 transform hover:scale-110"
+                aria-label="Youtube"
+              >     <FaInstagram  size={24} />
               </a>
             </div>
           </div>
@@ -118,11 +132,11 @@ const Footer = () => {
                 className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-all duration-300 group"
               >
                 <FaPhone className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
-                <span>(123) 456-7890</span>
+                <span>+1(818)-412-2777</span>
               </a>
               <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 group">
                 <FaMapMarkerAlt className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
-                <span>123 Tax Street, Finance City, FC 12345</span>
+                <span>633 old stone rd, Austin, Tx, 78737</span>
               </div>
             </div>
           </div>

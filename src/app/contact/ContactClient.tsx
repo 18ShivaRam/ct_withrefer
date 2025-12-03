@@ -80,7 +80,7 @@ export default function ContactPage() {
 
   const contactInfo = {
     address: "633 old stone rd, Austin, Tx, 78737",
-    phone: "+1 (832)-334-4840",
+    phone: "+1(818)-412-2777",
     email: "admin@cognitaxes.com"
   };
 
