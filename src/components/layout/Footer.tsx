@@ -134,10 +134,17 @@ const Footer = () => {
                 <FaPhone className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
                 <span>+1(818)-412-2777</span>
               </a>
-              <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 group">
+              {/* <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 group">
                 <FaMapMarkerAlt className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
                 <span>633 old stone rd, Austin, TEXAS, 78737</span>
-              </div>
+              </div> */}
+              <a href="https://www.google.com/maps?q=633+old+stone+rd,+Austin,+TEXAS,+78737"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-all duration-300 group">
+                <FaMapMarkerAlt className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
+                <span>633 old stone rd, Austin, TEXAS, 78737</span>
+                </a>
             </div>
           </div>
         </div>

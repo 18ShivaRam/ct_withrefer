@@ -40,7 +40,6 @@ export default function ContactPage() {
     setSubmitError('');
 
     try {
-      // Send data to Supabase
       const { error } = await supabase
         .from('contact_messages')
         .insert([
@@ -56,7 +55,6 @@ export default function ContactPage() {
       if (error) throw error;
 
       setSubmitSuccess(true);
-      // Clear form fields but keep the form visible
       setFormData({
         firstName: '',
         lastName: '',
@@ -65,7 +63,6 @@ export default function ContactPage() {
         message: ''
       });
 
-      // Auto-hide success message after 5 seconds
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 5000);
@@ -80,8 +77,13 @@ export default function ContactPage() {
 
   const contactInfo = {
     address: "633 old stone rd, Austin, TEXAS, 78737",
+    addressLink: "https://www.google.com/maps?q=633+old+stone+rd,+Austin,+TEXAS,+78737",
+
     phone: "+1(818)-412-2777",
-    email: "admin@cognitaxes.com"
+    phoneLink: "tel:+18184122777",
+
+    email: "admin@cognitaxes.com",
+    emailLink: "mailto:admin@cognitaxes.com"
   };
 
   const fadeIn = {
@@ -93,10 +95,8 @@ export default function ContactPage() {
     <main className="min-h-screen">
       {/* Hero Section */}
       <section className="relative text-white py-24 overflow-hidden">
-        {/* Background pattern */}
         <div className="absolute inset-0 bg-[url('/tax-pattern.svg')] opacity-10"></div>
 
-        {/* Optimized background via next/image */}
         <div className="absolute inset-0 -z-10">
           <Image
             src={contactImg}
@@ -111,8 +111,6 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
         </div>
 
-        <div className="absolute inset-0 "></div>
-
         <div className="container mx-auto px-4 relative">
           <motion.div
             initial="hidden"
@@ -120,7 +118,6 @@ export default function ContactPage() {
             variants={fadeIn}
             className="max-w-3xl mx-auto text-center"
           >
-            {/* Text content */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -129,6 +126,7 @@ export default function ContactPage() {
             >
               Contact Us
             </motion.h1>
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -143,25 +141,19 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form and Info Section */}
+      {/* Contact Form + Info */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            {/* <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900">Contact Us</h2>
-              <p className="text-gray-600 mt-2">
-                Contact our support team or make appointment with our consultants.
-              </p>
-            </div> */}
-
             <div className="bg-gray-50 rounded-xl p-8 md:p-12">
               <div className="grid md:grid-cols-2 gap-8">
-                {/* Form Section */}
 
+                {/* Form Section */}
                 <div>
                   <h2 className="text-3xl font-bold text-gray-900 mb-6">Request a Consultation</h2>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
+
                     <div className="grid grid-cols-2 gap-4">
                       <input
                         type="text"
@@ -172,6 +164,7 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 bg-white rounded-md border border-gray-300 text-gray-900 text-base placeholder:text-gray-500"
                         required
                       />
+
                       <input
                         type="text"
                         name="lastName"
@@ -193,6 +186,7 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 bg-white rounded-md border border-gray-300 text-gray-900 text-base placeholder:text-gray-500"
                         required
                       />
+
                       <input
                         type="tel"
                         name="phone"
@@ -216,7 +210,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#006666] text-white  py-3 rounded-md hover:bg-[#087830] transition-colors"
+                      className="w-full bg-[#006666] text-white py-3 rounded-md hover:bg-[#087830] transition-colors"
                     >
                       {isSubmitting ? "Sending..." : "Submit"}
                     </button>
@@ -224,6 +218,7 @@ export default function ContactPage() {
                     {submitSuccess && (
                       <div className="text-green-600 text-center">Message sent successfully!</div>
                     )}
+
                     {submitError && (
                       <div className="text-red-600 text-center">{submitError}</div>
                     )}
@@ -234,30 +229,45 @@ export default function ContactPage() {
                 <div className="flex flex-col justify-center">
                   <div className="space-y-6">
 
+                    {/* Address */}
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
                         <FaMapMarkerAlt className="text-2xl text-[#006666]" />
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">Address</h3>
-                        <p className="text-gray-700 text-base leading-relaxed">
+
+                        {/* UPDATED: Address opens Google Maps */}
+                        <a
+                          href={contactInfo.addressLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-700 text-base leading-relaxed hover:text-blue-600"
+                        >
                           {contactInfo.address}
-                        </p>
+                        </a>
                       </div>
                     </div>
 
+                    {/* Email */}
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <FaMapMarkerAlt className="text-2xl text-[#006666]" />
+                        <FaEnvelope className="text-2xl text-[#006666]" />
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">Email</h3>
-                        <p className="text-gray-700 text-base leading-relaxed">
+
+                        {/* UPDATED: Email opens mail app */}
+                        <a
+                          href={contactInfo.emailLink}
+                          className="text-gray-700 text-base leading-relaxed hover:text-blue-600"
+                        >
                           {contactInfo.email}
-                        </p>
+                        </a>
                       </div>
                     </div>
 
+                    {/* Phone */}
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
                         <FaPhone className="text-2xl text-[#006666]" />
@@ -269,53 +279,33 @@ export default function ContactPage() {
                         </a>
                       </div>
                     </div>
+
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      {/* <section className="py-16 bg-green-100">
-        <div className="container mx-auto px-4">
-          <div className="bg-white rounded-xl p-8 md:p-12 shadow-md">
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                Ready to Get Started?
-              </h2>
-              <p className="text-gray-600 mb-8">
-                Contact us today to schedule a consultation or ask any questions you may have.
-              </p>
-
-              <a
-                href="mailto:admin@cognitaxes.com"
-                className="inline-block bg-[#00B2FF] text-white py-3 px-6 rounded-md hover:bg-blue-600 transition-colors"
-              >
-                Email Us
-              </a>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      {/* CTA Section */}
       <section className="py-16 bg-green-100">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6 text-gray-900">Ready to Get Started?</h2>
           <p className="text-xl text-gray-600 mb-8">
             Contact us today to schedule a consultation or ask any questions you may have.
           </p>
-        
+
           <Link
             href="/contact"
             prefetch={false}
-            className=" bg-[#006666] text-white py-4 px-8 rounded-lg hover:bg-[#087830] transition-all inline-block"
+            className="bg-[#006666] text-white py-4 px-8 rounded-lg hover:bg-[#087830] transition-all inline-block"
           >
-            Email Us 
+            Email Us
           </Link>
         </div>
       </section>
+
     </main>
   );
 }
