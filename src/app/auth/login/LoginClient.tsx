@@ -57,19 +57,19 @@ export default function LoginPage() {
         return;
       }
 
-      // Redirect by role
       if (profile?.role === 'client') {
         router.push('/dashboard');
         return;
       }
 
       if (profile?.role === 'employee') {
-        router.push('/employee');
+        await supabase.auth.signOut();
+        setError('Employees must sign in at /employee');
         return;
       }
 
-      // Fallback: go to dashboard
-      router.push('/dashboard');
+      await supabase.auth.signOut();
+      setError('Unauthorized Access');
     } catch (error: any) {
       setError(error.message || 'An error occurred during login');
     } finally {

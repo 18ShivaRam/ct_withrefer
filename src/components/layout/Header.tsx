@@ -12,6 +12,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -23,12 +24,14 @@ const Header = () => {
       if (currentUser) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('is_admin')
+          .select('is_admin, role')
           .eq('id', currentUser.id)
           .single();
         setIsAdmin(!!profile?.is_admin);
+        setIsEmployee(profile?.role === 'employee');
       } else {
         setIsAdmin(false);
+        setIsEmployee(false);
       }
     };
     
@@ -40,12 +43,14 @@ const Header = () => {
       if (nextUser) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('is_admin')
+          .select('is_admin, role')
           .eq('id', nextUser.id)
           .single();
         setIsAdmin(!!profile?.is_admin);
+        setIsEmployee(profile?.role === 'employee');
       } else {
         setIsAdmin(false);
+        setIsEmployee(false);
       }
     });
     
@@ -118,7 +123,7 @@ const Header = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <Link 
-                href={isAdmin ? '/admin' : '/dashboard'} 
+                href={isAdmin ? '/admin' : (isEmployee ? '/employee/dashboard' : '/dashboard')} 
                 className="text-gray-700 hover:text-[#006666] font-medium transition-colors duration-300"
               >
                 Dashboard
@@ -214,7 +219,7 @@ const Header = () => {
           ) : (
             <>
               <Link 
-                href={isAdmin ? '/admin' : '/dashboard'} 
+                href={isAdmin ? '/admin' : (isEmployee ? '/employee' : '/dashboard')} 
                 className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-all duration-300 px-4 py-2 rounded-lg"
                 onClick={toggleMenu}
               >

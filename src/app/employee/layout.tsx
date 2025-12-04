@@ -9,13 +9,15 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
-  const [signingOut, setSigningOut] = useState(false);
-  const [signOutError, setSignOutError] = useState<string | null>(null);
 
   useEffect(() => {
     const ensureEmployee = async () => {
       setLoading(true);
       try {
+        if (pathname === '/employee') {
+          setLoading(false);
+          return;
+        }
         const { data: auth } = await supabase.auth.getUser();
         const user = auth.user;
         if (!user) {
@@ -38,28 +40,16 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
         }
       } catch (e) {
         console.error('ensureEmployee error', e);
-        router.replace('/auth/login');
+        if (pathname !== '/employee') {
+          router.replace('/auth/login');
+        }
         return;
       } finally {
         setLoading(false);
       }
     };
     ensureEmployee();
-  }, [router]);
-
-  const handleSignOut = async () => {
-    setSigningOut(true);
-    setSignOutError(null);
-    try {
-      await supabase.auth.signOut();
-      router.push('/auth/login');
-    } catch (e: any) {
-      console.error('Error signing out:', e);
-      setSignOutError(e?.message || 'Error signing out');
-    } finally {
-      setSigningOut(false);
-    }
-  };
+  }, [router, pathname]);
 
   if (loading) {
     return (
@@ -72,34 +62,26 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
     );
   }
 
+  if (pathname === '/employee') {
+    return <>{children}</>;
+  }
+
   const linkClass = (href: string) =>
-    `px-3 py-2 rounded ${pathname === href ? 'bg-white text-[#006666]' : 'text-white hover:bg-[#005a5a]'} `;
+    `block px-4 py-2 rounded-md ${pathname === href ? 'bg-[#006666] text-white' : 'text-gray-700 hover:bg-gray-100'}`;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header with navigation following client portal style */}
-      <div className="bg-[#006666] text-white">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <div className="font-bold text-lg">Employee Portal</div>
-              <nav className="flex items-center space-x-2">
-                <Link href="/employee/dashboard" className={linkClass('/employee/dashboard')}>Dashboard</Link>
-                <Link href="/employee/clients" className={linkClass('/employee/clients')}>Assigned Clients</Link>
-              </nav>
-            </div>
-          
-          </div>
-          {signOutError && (
-            <div className="mt-2 bg-red-50 text-red-700 text-sm rounded px-3 py-2 inline-block">{signOutError}</div>
-          )}
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Sidebar (match admin style) */}
+      <aside className="w-64 bg-white border-r">
+        <div className="p-4 font-bold text-xl text-black">Employee</div>
+        <nav className="space-y-2 px-2">
+          <Link href="/employee/dashboard" className={linkClass('/employee/dashboard')}>Dashboard</Link>
+          <Link href="/employee/clients" className={linkClass('/employee/clients')}>Assigned Clients</Link>
+        </nav>
+      </aside>
 
       {/* Content */}
-      <div className="container mx-auto px-4 py-6">
-        {children}
-      </div>
+      <main className="flex-1 p-6">{children}</main>
     </div>
   );
 }

@@ -82,9 +82,15 @@ export default function ContactPage() {
     phone: "+1(818)-412-2777",
     phoneLink: "tel:+18184122777",
 
-    email: "admin@cognitaxes.com",
-    emailLink: "mailto:admin@cognitaxes.com"
+    email: "info@cognitaxes.com",
+    emailLink: "mailto:info@cognitaxes.com"
   };
+<a
+  href={contactInfo.phoneLink}
+  className="text-gray-700 text-base hover:text-blue-600"
+>
+  {contactInfo.phone}
+</a>
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },

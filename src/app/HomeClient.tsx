@@ -315,13 +315,20 @@ export default function Home() {
           <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
             Schedule a free consultation with our tax experts and discover how we can help you maximize your tax benefits.
           </p>
-          <Link 
+          {/* <Link 
             href="/contact" 
             prefetch={false}
             className="bg-[#006666] text-white px-10 py-4 rounded-lg font-semibold hover:bg-[#087830] transition-all duration-300 inline-block transform hover:scale-105 hover:shadow-lg"
           >
             Contact Us Today
-          </Link>
+          </Link> */}
+          <a href="https://wa.me/917814066558" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#006666] text-white px-10 py-4 rounded-lg font-semibold hover:bg-[#087830] transition-all duration-300 inline-block transform hover:scale-105 hover:shadow-lg">
+            Contact Us Today
+            </a>
+
         </motion.div>
       </section>
     </>

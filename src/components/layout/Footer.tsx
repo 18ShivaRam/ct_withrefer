@@ -121,14 +121,14 @@ const Footer = () => {
             <h3 className="text-2xl font-bold mb-6 text-[#006666]">Contact Us</h3>
             <div className="space-y-4">
               <a 
-                href="mailto:admin@cognitaxes.com" 
+                href="mailto:info@cognitaxes.com" 
                 className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-all duration-300 group"
               >
                 <FaEnvelope className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
-                <span>admin@cognitaxes.com</span>
+                <span>info@cognitaxes.com</span>
               </a>
-              <a 
-                href="tel:+1234567890" 
+              <a
+                href="tel:+917814066558" 
                 className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-all duration-300 group"
               >
                 <FaPhone className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />

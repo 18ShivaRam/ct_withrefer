@@ -34,7 +34,7 @@ export default function PricesPage() {
       const { data, error } = await supabase
         .from('prices')
         .select('*')
-        .order('created_at', { ascending: true });
+        .order('title', { ascending: true });
 
       if (error) throw error;
       setPrices(data || []);
@@ -150,9 +150,14 @@ export default function PricesPage() {
                         <h3 className="text-lg font-medium text-gray-900">{item.title}</h3>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="text-xl font-bold text-[#006666]">
-                          ${item.price.toFixed(2)}
-                        </span>
+                      <span className="text-xl font-bold text-[#006666]">
+  {item.price?.toString().toLowerCase() === "free"
+    ? "Free"
+    : isNaN(Number(item.price))
+      ? "0.00"
+      : Number(item.price).toFixed(2)}
+</span>
+
                         <div className="flex gap-2">
                           <button
                             onClick={() => handleWhatsApp(item.whatsapp_number, item.title)}
