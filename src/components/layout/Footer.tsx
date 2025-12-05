@@ -136,7 +136,7 @@ const Footer = () => {
                 <span>+1(818)-412-2777</span>
               </a>
               <a
-                href="https://wa.me/917814066558" 
+                href="https://wa.me/918977222353" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-all duration-300 group"
