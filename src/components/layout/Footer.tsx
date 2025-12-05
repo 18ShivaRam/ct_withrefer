@@ -1,18 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { FaFacebook, FaTwitter, FaLinkedin, FaYoutube,FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import Image from 'next/image';
+import { FaFacebook, FaTwitter, FaLinkedin, FaYoutube,FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-gray-800 text-white">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 md:gap-10">
           {/* Company Info */}
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-bold mb-4 text-[#006666]">Cognitaxes</h3>
             <p className="mb-6 text-gray-300 leading-relaxed">
-              Smart, Secure & Hassle-Free Tax Filing for individuals and businesses. Your trusted partner in financial success.
+              Smart, Secure & Hassle-Free Tax Filing for individuals and businesses.
             </p>
             <div className="flex space-x-6 justify-center md:justify-start">
               <a 
@@ -134,6 +135,15 @@ const Footer = () => {
                 <FaPhone className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
                 <span>+1(818)-412-2777</span>
               </a>
+              <a
+                href="https://wa.me/917814066558" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-all duration-300 group"
+              >
+                <FaWhatsapp className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
+                <span>+91 78140 66558</span>
+              </a>
               {/* <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 group">
                 <FaMapMarkerAlt className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
                 <span>633 old stone rd, Austin, TEXAS, 78737</span>
@@ -147,9 +157,21 @@ const Footer = () => {
                 </a>
             </div>
           </div>
+          
+        <div className="mt-[-120px] flex items-center justify-center md:justify-center">
+          <Image
+            src="/efile.jpeg"
+            alt="Authorized IRS e-file Provider"
+            width={240}
+            height={160}
+            className="h-12 sm:h-40 w-auto object-contain rounded-md shadow-md"
+            priority={false}
+          />
+        </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-12 pt-8 text-center">
+       
+        <div className="border-t border-gray-700 mt-4 pt-8 text-center">
           <p className="text-gray-400">&copy; {new Date().getFullYear()} Cognitaxes. All rights reserved.</p>
         </div>
       </div>

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaWhatsapp,FaAddressBook } from 'react-icons/fa';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -83,7 +83,11 @@ export default function ContactPage() {
     phoneLink: "tel:+18184122777",
 
     email: "info@cognitaxes.com",
-    emailLink: "mailto:info@cognitaxes.com"
+    emailLink: "mailto:info@cognitaxes.com",
+    whatsapp: "+91 7814066558",
+    whatsappLink: "https://wa.me/917814066558"
+
+    
   };
 <a
   href={contactInfo.phoneLink}
@@ -273,16 +277,27 @@ export default function ContactPage() {
                       </div>
                     </div>
 
-                    {/* Phone */}
+                    {/* Phone & WhatsApp */}
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <FaPhone className="text-2xl text-[#006666]" />
+                        <FaAddressBook className="text-2xl text-[#006666]" />
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">Contact Numbers</h3>
-                        <a href={`tel:${contactInfo.phone}`} className="text-gray-700 text-base hover:text-blue-600">
-                          {contactInfo.phone}
-                        </a>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <FaPhone className="text-[#006666]" />
+                            <a href={contactInfo.phoneLink} className="text-gray-700 text-base hover:text-blue-600">
+                              {contactInfo.phone}
+                            </a>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <FaWhatsapp className="text-[#006666]" />
+                            <a href={contactInfo.whatsappLink} target="_blank" rel="noopener noreferrer" className="text-gray-700 text-base hover:text-blue-600">
+                              {contactInfo.whatsapp}
+                            </a>
+                          </div>
+                        </div>
                       </div>
                     </div>
 

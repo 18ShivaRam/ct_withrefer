@@ -9,18 +9,29 @@ export default function AdminClientsPage() {
   const [loading, setLoading] = useState(true);
   const [clients, setClients] = useState<any[]>([]);
   const [employees, setEmployees] = useState<any[]>([]);
+  const [assignments, setAssignments] = useState<Record<string, string>>({});
   const [selectedClientIds, setSelectedClientIds] = useState<string[]>([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>('');
   const [assigning, setAssigning] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [search, setSearch] = useState('');
 
-  const totalClients = clients.length;
+  const filteredClients = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return clients;
+    return clients.filter((c) => {
+      const fields = [c.full_name, c.email, c.phone, c.user_unique_id].map((v: any) => (v || '').toString().toLowerCase());
+      return fields.some((f: string) => f.includes(q));
+    });
+  }, [clients, search]);
+
+  const totalClients = filteredClients.length;
   const totalPages = Math.max(1, Math.ceil(totalClients / pageSize));
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = Math.min(totalClients, startIndex + pageSize);
-  const currentClients = useMemo(() => clients.slice(startIndex, endIndex), [clients, startIndex, endIndex]);
+  const currentClients = useMemo(() => filteredClients.slice(startIndex, endIndex), [filteredClients, startIndex, endIndex]);
 
   useEffect(() => {
     // Clamp current page if list or page size changes
@@ -32,12 +43,12 @@ export default function AdminClientsPage() {
 
   useEffect(() => {
     const load = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
         window.location.href = '/admin/login';
         return;
       }
-      const { data: admin } = await supabase.from('profiles').select('is_admin').eq('id', session.user.id).single();
+      const { data: admin } = await supabase.from('profiles').select('is_admin').eq('id', user.id).single();
       if (!admin?.is_admin) {
         await supabase.auth.signOut();
         window.location.href = '/admin/login';
@@ -83,7 +94,8 @@ export default function AdminClientsPage() {
           }
         }
       }
-      setClients(clientsData || []);
+      const finalClients = clientsData || [];
+      setClients(finalClients);
 
       // Employees for assignment
       // Employees for assignment with soft-delete; fallback if needed
@@ -107,6 +119,25 @@ export default function AdminClientsPage() {
         }
         setEmployees((employeesData2 || []).filter((e: any) => e.is_deleted ? !e.is_deleted : true));
       }
+
+      try {
+        const { data: assignmentRows, error: assignErr } = await supabase
+          .from('client_employee_assignments')
+          .select('client_id, employee_id');
+        if (assignErr) {
+          console.error('Fetch assignments error:', assignErr.message);
+        }
+        const map: Record<string, string> = {};
+        (assignmentRows || []).forEach((row: any) => {
+          if (row?.client_id && row?.employee_id) {
+            map[row.client_id] = row.employee_id;
+          }
+        });
+        setAssignments(map);
+      } catch (e) {
+        console.error('Assignments load exception', e);
+      }
+
       setLoading(false);
     };
     load();
@@ -124,98 +155,110 @@ export default function AdminClientsPage() {
           <div className="mb-4 p-3 bg-red-50 text-red-700 rounded">{errorMsg}</div>
         )}
 
-        <div className="flex items-center justify-between mb-4">
-          {/* Assignment Controls */}
-          <div className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              aria-label="Select all on page"
-              className="h-4 w-4"
-              checked={currentClients.length > 0 && currentClients.every(c => selectedClientIds.includes(c.id))}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  const ids = currentClients.map(c => c.id);
-                  setSelectedClientIds(prev => Array.from(new Set([...prev, ...ids])));
-                } else {
-                  const ids = new Set(currentClients.map(c => c.id));
-                  setSelectedClientIds(prev => prev.filter(id => !ids.has(id)));
-                }
-              }}
-            />
-            <select
-              className="border rounded p-2 text-black"
-              value={selectedEmployeeId}
-              onChange={e => setSelectedEmployeeId(e.target.value)}
-            >
-              <option value="">Select employee...</option>
-              {employees.map(emp => (
-                <option key={emp.id} value={emp.id}>
-                  {emp.full_name || emp.email} ({emp.employee_role || '-'})
-                </option>
-              ))}
-            </select>
-            <button
-              className="bg-[#006666] text-white rounded px-4 py-2 disabled:bg-gray-300 disabled:text-gray-600"
-              disabled={assigning || selectedClientIds.length === 0 || !selectedEmployeeId}
-              onClick={async () => {
-                setAssigning(true);
-                try {
-                  for (const clientId of selectedClientIds) {
-                    const res = await fetch('/api/admin/assign-client', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ employeeId: selectedEmployeeId, clientId })
-                    });
-                    if (!res.ok) {
-                      const j = await res.json();
-                      throw new Error(j.error || 'Assignment failed');
-                    }
+      <div className="flex items-center justify-between mb-4">
+        {/* Assignment Controls */}
+        <div className="flex items-center space-x-3">
+          <input
+            type="checkbox"
+            aria-label="Select all on page"
+            className="h-4 w-4"
+            checked={currentClients.length > 0 && currentClients.every(c => selectedClientIds.includes(c.id))}
+            onChange={(e) => {
+              if (e.target.checked) {
+                const ids = currentClients.map(c => c.id);
+                setSelectedClientIds(prev => Array.from(new Set([...prev, ...ids])));
+              } else {
+                const ids = new Set(currentClients.map(c => c.id));
+                setSelectedClientIds(prev => prev.filter(id => !ids.has(id)));
+              }
+            }}
+          />
+          <select
+            className="border rounded p-2 text-black"
+            value={selectedEmployeeId}
+            onChange={e => setSelectedEmployeeId(e.target.value)}
+          >
+            <option value="">Select employee...</option>
+            {employees.map(emp => (
+              <option key={emp.id} value={emp.id}>
+                {emp.full_name || emp.email} ({emp.employee_role || '-'})
+              </option>
+            ))}
+          </select>
+          <button
+            className="bg-[#006666] text-white rounded px-4 py-2 disabled:bg-gray-300 disabled:text-gray-600"
+            disabled={assigning || selectedClientIds.length === 0 || !selectedEmployeeId}
+            onClick={async () => {
+              setAssigning(true);
+              try {
+                for (const clientId of selectedClientIds) {
+                  const res = await fetch('/api/admin/assign-client', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ employeeId: selectedEmployeeId, clientId })
+                  });
+                  if (!res.ok) {
+                    const j = await res.json();
+                    throw new Error(j.error || 'Assignment failed');
                   }
-                  alert('Assigned successfully');
-                  setSelectedClientIds([]);
-                } catch (err: any) {
-                  alert(err.message);
-                } finally {
-                  setAssigning(false);
                 }
-              }}
-            >
-              {assigning ? 'Assigning...' : 'Assign Selected'}
-            </button>
-          </div>
-
-          {/* Pagination Controls */}
-          <div className="flex items-center space-x-3">
-            <span className="text-sm text-gray-700">
-              {totalClients === 0 ? '0 of 0' : `${startIndex + 1}–${endIndex} of ${totalClients}`}
-            </span>
-            <select
-              className="border rounded p-2 text-black"
-              value={pageSize}
-              onChange={e => setPageSize(Number(e.target.value))}
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-            </select>
-            <button
-              className={`px-3 py-2 rounded border ${currentPage <= 1 ? 'text-gray-400 border-gray-300 cursor-not-allowed' : 'text-[#006666] border-[#006666] hover:bg-[#006666] hover:text-white'}`}
-              disabled={currentPage <= 1}
-              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-              title="Previous"
-            >
-              <FaChevronLeft />
-            </button>
-            <button
-              className={`px-3 py-2 rounded border ${currentPage >= totalPages ? 'text-gray-400 border-gray-300 cursor-not-allowed' : 'text-[#006666] border-[#006666] hover:bg-[#006666] hover:text-white'}`}
-              disabled={currentPage >= totalPages}
-              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-              title="Next"
-            >
-              <FaChevronRight />
-            </button>
-          </div>
+                alert('Assigned successfully');
+                setSelectedClientIds([]);
+                setAssignments(prev => {
+                  const next = { ...prev };
+                  selectedClientIds.forEach((id) => { next[id] = selectedEmployeeId; });
+                  return next;
+                });
+              } catch (err: any) {
+                alert(err.message);
+              } finally {
+                setAssigning(false);
+              }
+            }}
+          >
+            {assigning ? 'Assigning...' : 'Assign Selected'}
+          </button>
         </div>
+
+        {/* Pagination Controls */}
+        <div className="flex items-center space-x-3">
+          <input
+            type="text"
+            className="border rounded p-2 text-black"
+            placeholder="Search clients"
+            value={search}
+            onChange={(e) => { setCurrentPage(1); setSearch(e.target.value); }}
+          />
+          <span className="text-sm text-gray-700">
+            {totalClients === 0 ? '0 of 0' : `${startIndex + 1}–${endIndex} of ${totalClients}`}
+          </span>
+          <select
+            className="border rounded p-2 text-black"
+            value={pageSize}
+            onChange={e => setPageSize(Number(e.target.value))}
+          >
+            <option value={10}>10</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+          </select>
+          <button
+            className={`px-3 py-2 rounded border ${currentPage <= 1 ? 'text-gray-400 border-gray-300 cursor-not-allowed' : 'text-[#006666] border-[#006666] hover:bg-[#006666] hover:text-white'}`}
+            disabled={currentPage <= 1}
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            title="Previous"
+          >
+            <FaChevronLeft />
+          </button>
+          <button
+            className={`px-3 py-2 rounded border ${currentPage >= totalPages ? 'text-gray-400 border-gray-300 cursor-not-allowed' : 'text-[#006666] border-[#006666] hover:bg-[#006666] hover:text-white'}`}
+            disabled={currentPage >= totalPages}
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            title="Next"
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      </div>
 
         {loading ? (
           <div className='text-black text-center'>Loading...</div>
@@ -229,6 +272,7 @@ export default function AdminClientsPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Email</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Phone</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">User Unique ID</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Assigned To</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Created</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Action</th>
                 </tr>
@@ -249,6 +293,14 @@ export default function AdminClientsPage() {
                     <td className="px-6 py-4">{c.email}</td>
                     <td className="px-6 py-4">{c.phone || '-'}</td>
                     <td className="px-6 py-4">{c.user_unique_id || '-'}</td>
+                    <td className="px-6 py-4">{
+                      (() => {
+                        const empId = assignments[c.id];
+                        if (!empId) return '-';
+                        const emp = employees.find(e => e.id === empId);
+                        return emp ? (emp.full_name || emp.email || empId) : empId;
+                      })()
+                    }</td>
                     <td className="px-6 py-4">{new Date(c.created_at).toLocaleString()}</td>
                     <td className="px-6 py-4">
                       <Link href={`/admin/user/${c.id}`} className="text-[#006666]">View</Link>

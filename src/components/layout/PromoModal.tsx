@@ -47,11 +47,18 @@ export default function PromoModal() {
           <FaTimes />
         </button>
 
-        {/* Logo */}
-        <div className="flex items-center justify-center mb-4">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Image
+            src="/irs-authorized.png"
+            alt="IRS Authorized"
+            width={56}
+            height={40}
+            className="h-10 w-auto object-contain"
+            priority
+          />
           <Image
             src="/images/logosvg1.jpg"
-            alt="Cognitaxes Logo"
+            alt="Cognitaxes"
             width={160}
             height={40}
             className="h-10 w-auto object-contain"

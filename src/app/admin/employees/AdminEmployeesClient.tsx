@@ -16,12 +16,13 @@ export default function AdminEmployeesPage() {
   const [editing, setEditing] = useState(false);
   const [editForm, setEditForm] = useState<{ id: string; full_name: string; email: string; phone: string; employee_role: EmployeeRole }>({ id: '', full_name: '', email: '', phone: '', employee_role: 'caller' });
   const [savingEdit, setSavingEdit] = useState(false);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const load = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { window.location.href = '/admin/login'; return; }
-      const { data: admin } = await supabase.from('profiles').select('is_admin').eq('id', session.user.id).single();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { window.location.href = '/admin/login'; return; }
+      const { data: admin } = await supabase.from('profiles').select('is_admin').eq('id', user.id).single();
       if (!admin?.is_admin) { await supabase.auth.signOut(); window.location.href = '/admin/login'; return; }
       await Promise.all([fetchEmployees(), fetchClients()]);
       setLoading(false);
@@ -160,7 +161,16 @@ export default function AdminEmployeesPage() {
 
       {/* List Employees */}
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-lg text-black font-semibold mb-4">Employee List</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg text-black font-semibold">Employee List</h2>
+          <input
+            type="text"
+            className="border rounded p-2 text-black"
+            placeholder="Search employees"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         {loading ? (
           <div className="text-black text-center">Loading...</div>
         ) : (
@@ -176,7 +186,12 @@ export default function AdminEmployeesPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {employees.map(emp => (
+                {(employees.filter((emp) => {
+                  const q = search.trim().toLowerCase();
+                  if (!q) return true;
+                  const fields = [emp.full_name, emp.email, emp.phone, emp.employee_role].map((v: any) => (v || '').toString().toLowerCase());
+                  return fields.some((f: string) => f.includes(q));
+                })).map(emp => (
                   <tr key={emp.id}>
                     <td className="px-6 py-4">{emp.full_name}</td>
                     <td className="px-6 py-4">{emp.email}</td>
