@@ -142,7 +142,7 @@ const Footer = () => {
                 className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-all duration-300 group"
               >
                 <FaWhatsapp className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />
-                <span>+91 78140 66558</span>
+                <span>+91 8977222353</span>
               </a>
               {/* <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 group">
                 <FaMapMarkerAlt className="text-[#006666] group-hover:scale-110 transition-transform duration-300" />

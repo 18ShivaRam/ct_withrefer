@@ -84,10 +84,8 @@ export default function ContactPage() {
 
     email: "info@cognitaxes.com",
     emailLink: "mailto:info@cognitaxes.com",
-    whatsapp: "+91 7814066558",
-    whatsappLink: "https://wa.me/917814066558"
-
-    
+    whatsapp: "+91 8977222353",
+    whatsappLink: "https://wa.me/918977222353"
   };
 <a
   href={contactInfo.phoneLink}
