@@ -390,7 +390,7 @@ export default function UserDetailsPage({ id }: { id: string }) {
                         >
                           <div>
                             <div className="font-medium text-gray-900 flex items-center">
-                              {`${file.file_name}${file.uploaded_by_admin }`}
+                              {file.file_name}
                               {file.uploaded_by_admin && (
                                 <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">
                                   Admin Upload

@@ -106,7 +106,8 @@ export async function POST(request: NextRequest) {
       file_name: file.name,
       file_url: fileUrl,
       financial_year: Number(financialYear),
-      upload_date: new Date().toISOString()
+      upload_date: new Date().toISOString(),
+      ...(uploadedByAdmin ? { uploaded_by_admin: true } : {})
     };
 
     // Try insert; if schema complains about unknown columns, retry with minimal payload
