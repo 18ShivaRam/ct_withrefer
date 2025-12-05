@@ -322,7 +322,7 @@ export default function Home() {
           >
             Contact Us Today
           </Link> */}
-          <a href="https://wa.me/+91 8977222353" 
+          <a href="https://wa.me/+918977222353" 
           target="_blank" 
           rel="noopener noreferrer"
           className="bg-[#006666] text-white px-10 py-4 rounded-lg font-semibold hover:bg-[#087830] transition-all duration-300 inline-block transform hover:scale-105 hover:shadow-lg">
