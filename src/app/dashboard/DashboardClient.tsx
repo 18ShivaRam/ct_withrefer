@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { FaFileAlt, FaComments, FaBell } from 'react-icons/fa';
 import dynamic from 'next/dynamic';
+import imageCompression from 'browser-image-compression';
 const FaEye = dynamic(() => import('react-icons/fa').then(m => m.FaEye), { ssr: false });
 const FaDownload = dynamic(() => import('react-icons/fa').then(m => m.FaDownload), { ssr: false });
 const FaCalendarAlt = dynamic(() => import('react-icons/fa').then(m => m.FaCalendarAlt), { ssr: false });
@@ -141,7 +142,27 @@ export default function DashboardPage() {
 
       // Upload via server API to bypass client-side RLS
       for (let i = 0; i < selectedFiles.length; i++) {
-        const file = selectedFiles[i];
+        let file = selectedFiles[i];
+        
+        // Compress image if applicable
+        if (file.type.startsWith('image/')) {
+          try {
+            addLog('Compressing image', { name: file.name, originalSize: file.size });
+            const options = {
+              maxSizeMB: 1,
+              maxWidthOrHeight: 1920,
+              useWebWorker: true,
+            };
+            const compressedFile = await imageCompression(file, options);
+            addLog('Image compressed', { name: file.name, newSize: compressedFile.size });
+            // Create a new File object to preserve the name
+            file = new File([compressedFile], file.name, { type: file.type });
+          } catch (error) {
+            console.error('Image compression failed:', error);
+            addLog('Image compression failed, using original', { error });
+          }
+        }
+
         const formData = new FormData();
         formData.append('file', file);
         formData.append('userId', userId);

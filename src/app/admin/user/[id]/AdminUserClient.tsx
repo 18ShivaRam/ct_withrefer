@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import imageCompression from 'browser-image-compression';
 import { supabase } from '@/lib/supabase';
 import { FaEye, FaDownload, FaUpload, FaArrowLeft, FaCalendarAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -120,10 +121,27 @@ export default function UserDetailsPage({ id }: { id: string }) {
       return;
     }
 
-    const file = event.target.files[0];
+    let file = event.target.files[0];
     setUploading(true);
 
     try {
+      // Compress image if applicable
+      if (file.type.startsWith('image/')) {
+        try {
+          console.log('Compressing image:', file.name, file.size);
+          const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true,
+          };
+          const compressedFile = await imageCompression(file, options);
+          console.log('Image compressed:', file.name, compressedFile.size);
+          file = new File([compressedFile], file.name, { type: file.type });
+        } catch (error) {
+          console.error('Image compression failed:', error);
+        }
+      }
+
       const { data: { user: adminUser } } = await supabase.auth.getUser();
       if (!adminUser) {
         throw new Error('No admin session found');
