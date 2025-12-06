@@ -171,19 +171,19 @@ export default function RefundPage() {
       </a>
     </div>
 
-    {/* <div className="flex justify-between items-center py-4">
+    <div className="flex justify-between items-center py-4">
       <span className="text-gray-600 font-medium">Pay State Taxes Online</span>
-      <a href="https://sa.www4.irs.gov/wmr/"    target="_blank" className="text-[#006666] hover:underline font-medium">
+      <a href="https://www.officialpayments.com/index.jsp"    target="_blank" className="text-[#006666] hover:underline font-medium">
         Check Here
       </a>
     </div>
 
     <div className="flex justify-between items-center py-4">
       <span className="text-gray-600 font-medium">Pay Federal Taxes Online</span>
-      <a href="https://sa.www4.irs.gov/wmr/"    target="_blank" className="text-[#006666] hover:underline font-medium">
+      <a href="https://www.irs.gov/payments"    target="_blank" className="text-[#006666] hover:underline font-medium">
         Check Here
       </a>
-    </div> */}
+    </div>
   </div>
 </div>
 

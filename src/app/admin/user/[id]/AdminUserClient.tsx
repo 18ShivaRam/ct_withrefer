@@ -76,6 +76,13 @@ export default function UserDetailsPage({ id }: { id: string }) {
         return;
       }
 
+      // Mark user as viewed by admin
+      fetch('/api/admin/mark-viewed', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ userId })
+      }).catch(e => console.error('Mark viewed error', e));
+
       // Fetch user details via server API (service role) to bypass RLS
       try {
         const resp = await fetch(`/api/admin/profile?id=${encodeURIComponent(userId)}`);

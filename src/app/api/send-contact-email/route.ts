@@ -32,7 +32,9 @@ export async function POST(request: Request) {
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #006666;">New Consultation Request</h2>
-          <p><strong>Submitted At:</strong> ${new Date(submittedAt).toLocaleString()}</p>
+          <p><strong>Submitted At:</strong>
+          ${new Date(submittedAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}
+          </p>
           <hr style="border: 1px solid #eee; margin: 20px 0;" />
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>

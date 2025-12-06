@@ -14,7 +14,7 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
     const ensureEmployee = async () => {
       setLoading(true);
       try {
-        if (pathname === '/employee') {
+        if (pathname === '/employee' || pathname === '/employee/access-denied') {
           setLoading(false);
           return;
         }
@@ -40,7 +40,7 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
         }
       } catch (e) {
         console.error('ensureEmployee error', e);
-        if (pathname !== '/employee') {
+        if (pathname !== '/employee' && pathname !== '/employee/access-denied') {
           router.replace('/auth/login');
         }
         return;
@@ -62,7 +62,7 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
     );
   }
 
-  if (pathname === '/employee') {
+  if (pathname === '/employee' || pathname === '/employee/access-denied') {
     return <>{children}</>;
   }
 

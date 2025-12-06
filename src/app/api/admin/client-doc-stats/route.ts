@@ -46,12 +46,13 @@ export async function POST(req: Request) {
       clientUploads: number, 
       adminUploads: number, 
       totalUploads: number,
-      uploadsToday: number 
+      uploadsToday: number,
+      lastClientUploadDate: string | null
     }> = {};
 
     // Initialize stats for all requested clients
     clientIds.forEach(id => {
-      stats[id] = { clientUploads: 0, adminUploads: 0, totalUploads: 0, uploadsToday: 0 };
+      stats[id] = { clientUploads: 0, adminUploads: 0, totalUploads: 0, uploadsToday: 0, lastClientUploadDate: null };
     });
 
     const today = new Date().toISOString().split('T')[0];
@@ -66,6 +67,13 @@ export async function POST(req: Request) {
           stats[doc.user_id].adminUploads++;
         } else {
           stats[doc.user_id].clientUploads++;
+          // Track last client upload
+          if (doc.upload_date) {
+            const currentLast = stats[doc.user_id].lastClientUploadDate;
+            if (!currentLast || doc.upload_date > currentLast) {
+               stats[doc.user_id].lastClientUploadDate = doc.upload_date;
+            }
+          }
         }
 
         if (isToday) {

@@ -305,7 +305,7 @@ export default function AdminClientsPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {currentClients.map((c) => (
-                  <tr key={c.id} className={`hover:bg-gray-50 ${(stats[c.id]?.uploadsToday || 0) > 0 ? 'bg-yellow-50 border-l-4 border-yellow-400' : ''}`}>
+                  <tr key={c.id} className={`hover:bg-gray-50 ${(stats[c.id]?.lastClientUploadDate && (!c.admin_last_viewed_at || stats[c.id]?.lastClientUploadDate > c.admin_last_viewed_at)) ? 'bg-yellow-50 border-l-4 border-yellow-400' : ''}`}>
                     <td className="px-6 py-4">
                       <input
                         type="checkbox"
