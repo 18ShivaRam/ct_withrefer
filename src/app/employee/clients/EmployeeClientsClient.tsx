@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 export default function EmployeeClientsPage() {
   const [loading, setLoading] = useState(true);
   const [clients, setClients] = useState<any[]>([]);
+  const [stats, setStats] = useState<Record<string, any>>({});
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,7 +21,30 @@ export default function EmployeeClientsPage() {
           .select('client_id, profiles:client_id(full_name,email,phone,user_unique_id)')
           .eq('employee_id', employeeId);
         if (error) throw error;
-        setClients((data || []).map((row: any) => row.profiles));
+        
+        const clientList = (data || []).map((row: any) => ({
+          ...row.profiles,
+          id: row.client_id
+        }));
+        setClients(clientList);
+
+        // Fetch stats
+        if (clientList.length > 0) {
+          const clientIds = clientList.map((c: any) => c.id);
+          try {
+            const statsRes = await fetch('/api/admin/client-doc-stats', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ clientIds })
+            });
+            if (statsRes.ok) {
+              const { stats } = await statsRes.json();
+              setStats(stats || {});
+            }
+          } catch (statsErr) {
+            console.error('Failed to load stats', statsErr);
+          }
+        }
       } catch (e: any) {
         console.error('Load assigned clients error', e);
         setError(e?.message || 'Failed to load assigned clients');
@@ -53,6 +77,8 @@ export default function EmployeeClientsPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase">Email</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase">Phone</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase">User Unique ID</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase">Client Uploads</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase">Admin Uploads</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -62,6 +88,8 @@ export default function EmployeeClientsPage() {
                     <td className="px-6 py-4">{c?.email || '-'}</td>
                     <td className="px-6 py-4">{c?.phone || '-'}</td>
                     <td className="px-6 py-4">{c?.user_unique_id || '-'}</td>
+                    <td className="px-6 py-4">{stats[c.id]?.clientUploads || 0}</td>
+                    <td className="px-6 py-4">{stats[c.id]?.adminUploads || 0}</td>
                   </tr>
                 ))}
               </tbody>

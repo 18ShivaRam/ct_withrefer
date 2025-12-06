@@ -54,6 +54,24 @@ export default function ContactPage() {
 
       if (error) throw error;
 
+      // Send email notification to admin
+      try {
+        await fetch('/api/send-contact-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.firstName + ' ' + formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+            submittedAt: new Date().toISOString()
+          }),
+        });
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+        // We don't block the success state if email fails, but we log it
+      }
+
       setSubmitSuccess(true);
       setFormData({
         firstName: '',

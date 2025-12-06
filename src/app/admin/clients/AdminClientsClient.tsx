@@ -10,6 +10,7 @@ export default function AdminClientsPage() {
   const [clients, setClients] = useState<any[]>([]);
   const [employees, setEmployees] = useState<any[]>([]);
   const [assignments, setAssignments] = useState<Record<string, string>>({});
+  const [stats, setStats] = useState<Record<string, any>>({});
   const [selectedClientIds, setSelectedClientIds] = useState<string[]>([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>('');
   const [assigning, setAssigning] = useState(false);
@@ -32,6 +33,29 @@ export default function AdminClientsPage() {
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = Math.min(totalClients, startIndex + pageSize);
   const currentClients = useMemo(() => filteredClients.slice(startIndex, endIndex), [filteredClients, startIndex, endIndex]);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      if (currentClients.length === 0) return;
+      
+      const clientIds = currentClients.map(c => c.id);
+      try {
+        const res = await fetch('/api/admin/client-doc-stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ clientIds })
+        });
+        if (res.ok) {
+            const { stats: newStats } = await res.json();
+            setStats(prev => ({ ...prev, ...newStats }));
+        }
+      } catch (e) {
+        console.error('Failed to fetch stats', e);
+      }
+    };
+    
+    fetchStats();
+  }, [currentClients]);
 
   useEffect(() => {
     // Clamp current page if list or page size changes
@@ -274,12 +298,14 @@ export default function AdminClientsPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">User Unique ID</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Assigned To</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Created</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Total Uploads</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Uploads Today</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-[#006666] uppercase tracking-wider">Action</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {currentClients.map((c) => (
-                  <tr key={c.id} className="hover:bg-gray-50">
+                  <tr key={c.id} className={`hover:bg-gray-50 ${(stats[c.id]?.uploadsToday || 0) > 0 ? 'bg-yellow-50 border-l-4 border-yellow-400' : ''}`}>
                     <td className="px-6 py-4">
                       <input
                         type="checkbox"
@@ -302,6 +328,10 @@ export default function AdminClientsPage() {
                       })()
                     }</td>
                     <td className="px-6 py-4">{new Date(c.created_at).toLocaleString()}</td>
+                    <td className="px-6 py-4">{stats[c.id]?.totalUploads || 0}</td>
+                    <td className={`px-6 py-4 ${(stats[c.id]?.uploadsToday || 0) > 0 ? 'font-bold text-yellow-700' : ''}`}>
+                      {stats[c.id]?.uploadsToday || 0}
+                    </td>
                     <td className="px-6 py-4">
                       <Link href={`/admin/user/${c.id}`} className="text-[#006666]">View</Link>
                     </td>

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import PromoModal from '@/components/layout/PromoModal';
+import TestimonialSlider from '@/components/home/TestimonialSlider';
 
 // dynamic-load icons to reduce bundle size
 const FaShieldAlt = dynamic(() => import('react-icons/fa').then(mod => mod.FaShieldAlt), { ssr: false });
@@ -297,6 +298,28 @@ export default function Home() {
  
 </motion.div>
 
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gray-50 relative">
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+              Client <span className="text-[#006666]">Testimonials</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              See what our clients have to say about their experience with Cognitaxes.
+            </p>
+          </motion.div>
+          
+          <TestimonialSlider />
         </div>
       </section>
 

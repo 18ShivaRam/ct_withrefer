@@ -150,10 +150,15 @@ export default function PricesPage() {
                         <h3 className="text-lg font-medium text-gray-900">{item.title}</h3>
                       </div>
                       <div className="flex items-center gap-4">
-                      <span className="text-xl font-bold text-[#006666]">
+                      {/* <span className="text-xl font-bold text-[#006666]">
                         {item.price?.toString().toLowerCase() === "free"
                         ? "Free": isNaN(Number(item.price))? "0.00": Number(item.price).toFixed(2)}
-                        </span>
+                        </span> */}
+
+                        <span className="text-xl font-bold text-[#006666]">
+                          {item.price}
+                          </span>
+
 
                         <div className="flex gap-2">
                           <button
