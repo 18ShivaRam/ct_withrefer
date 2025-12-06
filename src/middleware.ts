@@ -11,7 +11,14 @@ export function middleware(request: NextRequest) {
 
     // Get Client IP
     // Note: In development (localhost), this might be ::1 or 127.0.0.1
-    let ip = request.ip || request.headers.get('x-forwarded-for') || '127.0.0.1';
+    let ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+    
+    // request.ip is available in Next.js middleware but sometimes TypeScript complains
+    // depending on the environment or type definitions. Safest to cast if needed,
+    // or rely on headers which are standard for proxies/edge.
+    if ((request as any).ip) {
+        ip = (request as any).ip;
+    }
     
     if (ip.includes(',')) {
       ip = ip.split(',')[0].trim();
