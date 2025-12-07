@@ -6,7 +6,7 @@ export interface StateRefundInfo {
 }
 
 export const stateRefundData: StateRefundInfo[] = [
-  { name: 'Alabama', code: 'AL', url: 'https://myalabamataxes.alabama.gov/' },
+  { name: 'Alabama', code: 'AL', url: 'https://myalabamataxes.alabama.gov/', },
   { name: 'Alaska', code: 'AK', url: null, isNone: true },
   { name: 'Arizona', code: 'AZ', url: 'https://aztaxes.gov/Home/CheckRefund' },
   { name: 'Arkansas', code: 'AR', url: 'https://atar.dfa.arkansas.gov/' },
