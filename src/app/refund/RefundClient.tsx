@@ -1,13 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaTimes } from 'react-icons/fa';
+import { stateRefundData } from './stateData';
 
 // Add static import (replace filename if different)
 import refundImg from '../../../public/images/refund.jpg';
 
 export default function RefundPage() {
+  const [showStateModal, setShowStateModal] = useState(false);
+
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -159,9 +164,12 @@ export default function RefundPage() {
   <div className="divide-y">
     <div className="flex justify-between items-center py-4">
       <span className="text-gray-600 font-medium">State Refund Status</span>
-      <a href="https://support.taxslayerpro.com/hc/en-us/articles/360022323154-State-Tax-Information-For-All-States" target="_blank" className="text-[#006666] hover:underline font-medium">
+      <button 
+        onClick={() => setShowStateModal(true)}
+        className="text-[#006666] hover:underline font-medium focus:outline-none"
+      >
         Check Here
-      </a>
+      </button>
     </div>
 
     <div className="flex justify-between items-center py-4">
@@ -220,6 +228,67 @@ export default function RefundPage() {
           </Link>
         </div>
       </section>
+
+      {/* State Refund Modal */}
+      <AnimatePresence>
+        {showStateModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowStateModal(false)}
+              className="absolute inset-0 bg-black/60"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+            >
+              <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center z-10">
+                <h3 className="text-xl font-bold text-gray-900">State Refund Status</h3>
+                <button
+                  onClick={() => setShowStateModal(false)}
+                  className="text-gray-500 hover:text-gray-700 p-2"
+                >
+                  <FaTimes size={20} />
+                </button>
+              </div>
+              <div className="p-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-3 text-sm">
+                  {stateRefundData.map((state) => (
+                    <div key={state.code} className="py-2 border-b border-gray-100 last:border-0">
+                      {state.isNone ? (
+                        <span className="text-gray-400 cursor-default">
+                          {state.name} ({state.code}) - NONE
+                        </span>
+                      ) : (
+                        <a
+                          href={state.url || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#00a3e0] hover:underline font-medium block w-full truncate"
+                        >
+                          {state.name} ({state.code})
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="sticky bottom-0 bg-gray-50 px-6 py-4 flex justify-end border-t">
+                <button
+                  onClick={() => setShowStateModal(false)}
+                  className="bg-[#00a3e0] text-white px-6 py-2 rounded hover:bg-[#008bbd] transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
