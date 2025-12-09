@@ -65,6 +65,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin/employees" className={linkClass('/admin/employees')}>Employees</Link>
           <Link href="/admin/referrals" className={linkClass('/admin/referrals')}>Referrals</Link>
           <Link href="/admin/consultations" className={linkClass('/admin/consultations')}>Consultations</Link>
+          <Link href="/admin/password-management" className={linkClass('/admin/password-management')}>Password Management</Link>
         </nav>
       </aside>
 

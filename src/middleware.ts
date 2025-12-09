@@ -34,12 +34,12 @@ export function middleware(request: NextRequest) {
     // If you want to work locally, you must either uncomment this OR 
     // temporarily add your local IP (127.0.0.1) to the ALLOWED_IPS list above.
     
-    /* 
+   
     if (process.env.NODE_ENV === 'development') {
       ALLOWED_IPS.push('127.0.0.1');
       ALLOWED_IPS.push('::1');
     }
-    */
+  
 
     // Check if the request IP is in the allowed list
     if (!ALLOWED_IPS.includes(ip)) {
