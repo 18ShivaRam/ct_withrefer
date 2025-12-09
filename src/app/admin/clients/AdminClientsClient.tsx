@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaTrash } from 'react-icons/fa';
 
 export default function AdminClientsPage() {
   const [loading, setLoading] = useState(true);
@@ -18,6 +18,24 @@ export default function AdminClientsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState('');
+
+  const deleteClient = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this client? This will remove the client from profiles and authentication.')) return;
+    try {
+      const res = await fetch(`/api/admin/clients/${id}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) {
+        const j = await res.json();
+        throw new Error(j.error || 'Delete failed');
+      }
+      // Remove from local state
+      setClients(prev => prev.filter(c => c.id !== id));
+      alert('Client deleted successfully');
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
 
   const filteredClients = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -171,7 +189,7 @@ export default function AdminClientsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl text-black font-bold">Clients</h1>
-        <Link href="/admin" className="text-sm text-[#006666]">← Back to Dashboard</Link>
+        {/* <Link href="/admin" className="text-sm text-[#006666]">← Back to Dashboard</Link> */}
       </div>
       {/* Top Controls: Assignment + Pagination */}
       <div className="bg-white rounded-lg shadow p-6">
@@ -333,7 +351,16 @@ export default function AdminClientsPage() {
                       {stats[c.id]?.uploadsToday || 0}
                     </td>
                     <td className="px-6 py-4">
-                      <Link href={`/admin/user/${c.id}`} className="text-[#006666]">View</Link>
+                      <div className="flex items-center space-x-3">
+                        <Link href={`/admin/user/${c.id}`} className="text-[#006666] hover:underline">View</Link>
+                        <button
+                          onClick={() => deleteClient(c.id)}
+                          className="text-red-600 hover:text-red-800"
+                          title="Delete Client"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

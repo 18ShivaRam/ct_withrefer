@@ -14,6 +14,8 @@ export default function PasswordManagementClient() {
   const [newPassword, setNewPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [updating, setUpdating] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [showOtpInput, setShowOtpInput] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export default function PasswordManagementClient() {
         .from('profiles')
         .select('id, full_name, email, role, is_admin, employee_role')
         .or('is_admin.eq.true,role.eq.employee')
+        .eq('is_deleted', false)
         .order('full_name');
 
       if (error) throw error;
@@ -48,6 +51,35 @@ export default function PasswordManagementClient() {
       return;
     }
 
+    // Admin Protection: Require OTP
+    if (selectedUser.is_admin && !showOtpInput) {
+      setUpdating(true);
+      setMessage(null);
+      try {
+        const res = await fetch('/api/admin/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: selectedUser.id, action: 'update_password' })
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || 'Failed to send OTP');
+        
+        setShowOtpInput(true);
+        setMessage({ type: 'success', text: `OTP sent to deepthi@cognitaxes.com. Please verify.` });
+      } catch (err: any) {
+        console.error(err);
+        setMessage({ type: 'error', text: err.message });
+      } finally {
+        setUpdating(false);
+      }
+      return;
+    }
+
+    if (selectedUser.is_admin && !otp) {
+      setMessage({ type: 'error', text: 'Please enter the OTP' });
+      return;
+    }
+
     setUpdating(true);
     setMessage(null);
 
@@ -57,7 +89,8 @@ export default function PasswordManagementClient() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId: selectedUser.id,
-          newPassword: newPassword
+          newPassword: newPassword,
+          otp: selectedUser.is_admin ? otp : undefined
         })
       });
 
@@ -78,6 +111,8 @@ export default function PasswordManagementClient() {
       } else {
         setMessage({ type: 'success', text: `Password updated successfully for ${selectedUser.full_name}` });
         setNewPassword('');
+        setOtp('');
+        setShowOtpInput(false);
         setSelectedUser(null);
       }
     } catch (error: any) {
@@ -111,6 +146,8 @@ export default function PasswordManagementClient() {
               onChange={(e) => {
                 const user = users.find(u => u.id === e.target.value);
                 setSelectedUser(user || null);
+                setShowOtpInput(false);
+                setOtp('');
                 setMessage(null);
               }}
             >
@@ -144,13 +181,34 @@ export default function PasswordManagementClient() {
                 <p className="mt-1 text-xs text-black">Must be at least 6 characters long.</p>
               </div>
 
+              {showOtpInput && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="space-y-2"
+                >
+                  <label className="block text-sm font-medium text-black">
+                    Enter Verification OTP (Sent to Admin Email)
+                  </label>
+                  <input
+                    type="text"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    className="block w-full border text-black border-gray-300 rounded-md py-2 pl-3 pr-10 focus:outline-none focus:ring-[#006666] focus:border-[#006666] sm:text-sm"
+                    placeholder="Enter 6-digit OTP"
+                    required
+                    maxLength={6}
+                  />
+                </motion.div>
+              )}
+
               <div className="pt-2">
                 <button
                   type="submit"
                   disabled={updating}
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#006666] hover:bg-[#087830] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#006666] disabled:opacity-50"
                 >
-                  {updating ? 'Updating...' : 'Update Password'}
+                  {updating ? 'Processing...' : (showOtpInput ? 'Verify & Update' : (selectedUser.is_admin ? 'Send OTP & Update' : 'Update Password'))}
                 </button>
               </div>
             </form>

@@ -90,24 +90,39 @@ export default function AdminEmployeesPage() {
       phone: editForm.phone,
       employee_role: editForm.employee_role,
     };
-    const { error } = await supabase.from('profiles').update(updates).eq('id', editForm.id);
-    if (error) {
-      alert(error.message);
-    } else {
+    try {
+      const res = await fetch(`/api/admin/employees/${editForm.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+      });
+      if (!res.ok) {
+        const j = await res.json();
+        throw new Error(j.error || 'Update failed');
+      }
       setEditing(false);
       await fetchEmployees();
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setSavingEdit(false);
     }
-    setSavingEdit(false);
   };
 
   const deleteEmployee = async (id: string) => {
     if (!confirm('Delete this user?')) return;
-    const { error } = await supabase.from('profiles').update({ is_deleted: true }).eq('id', id);
-    if (error) {
-      alert(error.message);
-      return;
+    try {
+      const res = await fetch(`/api/admin/employees/${id}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) {
+        const j = await res.json();
+        throw new Error(j.error || 'Delete failed');
+      }
+      await fetchEmployees();
+    } catch (err: any) {
+      alert(err.message);
     }
-    await fetchEmployees();
   };
 
   const assignClient = async (employeeId: string, clientId: string) => {
