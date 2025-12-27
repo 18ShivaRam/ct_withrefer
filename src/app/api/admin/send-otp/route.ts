@@ -17,25 +17,15 @@ export async function POST(req: NextRequest) {
     const supabaseAdmin = createServiceSupabase();
 
     // Ensure bucket exists
-    const { data: buckets, error: listError } = await supabaseAdmin.storage.listBuckets();
-    
-    if (listError) {
-      console.error('Storage List Error:', listError);
-      throw new Error(`Storage Error: ${listError.message}`);
-    }
-
+    const { data: buckets } = await supabaseAdmin.storage.listBuckets();
     const bucketName = 'admin-temp-storage';
     const bucketExists = buckets?.find(b => b.name === bucketName);
 
     if (!bucketExists) {
-      const { error: createError } = await supabaseAdmin.storage.createBucket(bucketName, {
+      await supabaseAdmin.storage.createBucket(bucketName, {
         public: false,
         fileSizeLimit: 1024, // 1KB is enough
       });
-      if (createError && !createError.message.includes('already exists')) {
-         console.error('Create Bucket Error:', createError);
-         throw new Error(`Create Bucket Error: ${createError.message}`);
-      }
     }
 
     // Store OTP in a file named `otp_{userId}.json`
@@ -70,9 +60,6 @@ export async function POST(req: NextRequest) {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
-      tls: {
-        rejectUnauthorized: false
-      }
     });
 
     const targetEmail = 'deepthi@cognitaxes.com';
@@ -95,10 +82,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, message: `OTP sent to ${targetEmail}` });
 
   } catch (error: any) {
-    console.error('OTP Error Full:', error);
-    return NextResponse.json({ 
-      error: error.message || 'Internal Server Error',
-      details: error.toString()
-    }, { status: 500 });
+    console.error('OTP Error:', error);
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }

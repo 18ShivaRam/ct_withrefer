@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createServiceSupabase } from '@/lib/supabaseService';
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,17 +10,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing clientId or employeeId' }, { status: 400 });
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabase = createServiceSupabase();
 
-    const { error } = await supabase
+    const { error: delError } = await supabase
       .from('client_employee_assignments')
-      .upsert({ client_id: clientId, employee_id: employeeId });
+      .delete()
+      .eq('client_id', clientId);
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    if (delError) {
+      return NextResponse.json({ error: delError.message }, { status: 500 });
+    }
+
+    const { error: insError } = await supabase
+      .from('client_employee_assignments')
+      .insert({ client_id: clientId, employee_id: employeeId });
+
+    if (insError) {
+      return NextResponse.json({ error: insError.message }, { status: 500 });
     }
 
     return NextResponse.json({ ok: true }, { status: 200 });
