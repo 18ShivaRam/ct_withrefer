@@ -19,6 +19,14 @@ export default function AdminClientsPage() {
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState('');
 
+  const employeeCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    Object.values(assignments).forEach((empId) => {
+      counts[empId] = (counts[empId] || 0) + 1;
+    });
+    return counts;
+  }, [assignments]);
+
   const deleteClient = async (id: string) => {
     if (!confirm('Are you sure you want to delete this client? This will remove the client from profiles and authentication.')) return;
     try {
@@ -223,7 +231,7 @@ export default function AdminClientsPage() {
             <option value="">Select employee...</option>
             {employees.map(emp => (
               <option key={emp.id} value={emp.id}>
-                {emp.full_name || emp.email} ({emp.employee_role || '-'})
+                {emp.full_name || emp.email} ({emp.employee_role || '-'}) ({employeeCounts[emp.id] || 0})
               </option>
             ))}
           </select>
