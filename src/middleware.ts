@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
 
     // Allowed IPs (Office IPs)
     const ALLOWED_IPS = [
-      '106.200.31.34','183.82.102.34','106.214.2.84'    // Office IPv4
+      '106.200.31.34','183.82.102.34','106.214.2.84','2001:4860:7:805::dc'    // Office IPv4
     ];
 
     // For local development, we typically allow localhost (127.0.0.1, ::1)
